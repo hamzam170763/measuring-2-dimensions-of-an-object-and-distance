@@ -1,0 +1,221 @@
+<MyBg>:
+    Widget:
+        Image:
+            size:root.width, root.height
+            source:"bg.png"
+            allow_stretch:True
+            #keep_ratio: False
+        Button:
+            text:"Measure Dimensions"
+            color: 0, 0, 0, 1
+            font_name:
+            font_size: 16
+            size:200,60
+            pos:(root.width/2)-100,(root.height/2)
+            background_color:(0,0,0,0)
+            on_press:
+                # You can define the duration of the change
+                # and the direction of the slide
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 1
+                root.manager.current = 'Dimensions'
+            canvas.before:
+                Color:
+                    rgba:(0/255,255/255,0/255,1)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[40]
+            Button:
+                text:"Measure Distance"
+                color: 0, 0, 0, 1
+                font_name:
+                font_size: 16
+                size:200,60
+                pos:(root.width/2)-100,(root.height/2)-100
+                background_color:(0,0,0,0)
+                on_press:
+                    # You can define the duration of the change
+                    # and the direction of the slide
+                    root.manager.transition.direction = 'left'
+                    root.manager.transition.duration = 1
+                    root.manager.current = 'Distance'
+                canvas.before:
+                    Color:
+                        rgba:(255/255,255/255,0/255,1)
+                    RoundedRectangle:
+                        size:self.size
+                        pos:self.pos
+                        radius:[40]
+
+
+<MeasureDimensions>:
+    Widget:
+        Image:
+            size:root.width, root.height
+            source:"bg.png"
+            allow_stretch:True
+            #keep_ratio: False
+
+        Button:
+            allow_stretch: False
+            size:30,30
+            pos:60,400
+            on_press:
+                # You can define the duration of the change
+                # and the direction of the slide
+                root.manager.transition.direction = 'right'
+                root.manager.transition.duration = 1
+                root.manager.current = 'MyBg'
+            Image:
+                size:50,50
+                source: "back.PNG"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        Button:
+            id:detectBTN
+            text:"Detect Aruco"
+            color: 0, 0, 0, 1
+            font_name:
+            font_size: 16
+            size:200,60
+            pos:130,300
+            background_color:(0,0,0,0)
+            on_press:app.detectTrue(self.parent)
+            canvas.before:
+                Color:
+                    rgba:(0/255,255/255,0/255,1)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[40]
+        Button:
+            id:measureBTN
+            disabled:True
+            text:"Measure Dimensions"
+            color: 0, 0, 0, 1
+            font_name:
+            font_size: 16
+            size:200,60
+            pos:130,200
+            background_color:(0,0,0,0)
+            on_press:app.measureTrue(self.parent)
+            canvas.before:
+                Color:
+                    rgba:(255/255,255/255,0/255,1)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[40]
+        Image:
+            id:image
+            size:320,320
+            pos:400,100
+
+<MeasureDistance>:
+    Widget:
+        Image:
+            size:root.width, root.height
+            source:"bg.png"
+            allow_stretch:True
+            #keep_ratio: False
+
+        Button:
+            allow_stretch: False
+            size:30,30
+            pos:60,400
+            on_press:
+                # You can define the duration of the change
+                # and the direction of the slide
+                root.manager.transition.direction = 'right'
+                root.manager.transition.duration = 1
+                root.manager.current = 'MyBg'
+            Image:
+                size:50,50
+                source: "back.PNG"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        Button:
+            id:detectBTN
+            text:"Calibrate"
+            color: 0, 0, 0, 1
+            font_name:
+            font_size: 16
+            size:200,60
+            pos:130,300
+            background_color:(0,0,0,0)
+            on_press:
+                # You can define the duration of the change
+                # and the direction of the slide
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 1
+                root.manager.current = 'Calibrate'
+            canvas.before:
+                Color:
+                    rgba:(0/255,255/255,0/255,1)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[40]
+        Button:
+            id:measureBTN
+            #disabled:True
+            text:"Measure Distance"
+            color: 0, 0, 0, 1
+            font_name:
+            font_size: 16
+            size:200,60
+            pos:130,200
+            background_color:(0,0,0,0)
+            on_press:app.measure_distance(self.parent)
+            canvas.before:
+                Color:
+                    rgba:(255/255,255/255,0/255,1)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[40]
+        Image:
+            id:image
+            size:320,320
+            pos:400,100
+
+<Calibrate>:
+    Widget:
+        Image:
+            size:root.width, root.height
+            source:"bg.png"
+            allow_stretch:True
+            #keep_ratio: False
+        TextInput:
+            id:knownDistance
+            hint_text:"Enter Known Distance"
+            size:200,50
+            pos:(root.width/2)-(self.width)-50,(root.height/2)
+            value:22.86
+        TextInput:
+            id:knownWidth
+            hint_text:"Enter Known Width"
+            size:200,50
+            pos:(root.width/2)+50,(root.height/2)
+            value:17
+        Button:
+            text:"Calibrate"
+            color: 0, 0, 0, 1
+            font_name:
+            font_size: 16
+            size:150,60
+            pos:(root.width/2)-(self.width/2),(root.height/2)-200
+            background_color:(0,0,0,0)
+            on_press:
+                app.calibration(self.parent)
+                root.manager.transition.direction = 'right'
+                root.manager.transition.duration = 1
+                root.manager.current = 'Distance'
+            canvas.before:
+                Color:
+                    rgba:(0/255,255/255,0/255,1)
+                RoundedRectangle:
+                    size:self.size
+                    pos:self.pos
+                    radius:[40]
